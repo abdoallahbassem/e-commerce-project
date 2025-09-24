@@ -30,14 +30,17 @@ export const authOptions: NextAuthOptions = {
             email: credentials?.email,
             password: credentials?.password,
           }),
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${String(token ?? "")}`,
+          },
         });
-      
+
         const payLoad = await res.json();
-      
+
         if (payLoad.message === "success") {
           const decodedToken: { id: string } = jwtDecode(payLoad.token);
-      
+
           return {
             id: decodedToken.id,
             name: payLoad.user.name,
@@ -47,7 +50,6 @@ export const authOptions: NextAuthOptions = {
           } as any; // 👈 هنا
         } else throw new Error(payLoad.err);
       },
-      
     }),
   ],
   callbacks: {
