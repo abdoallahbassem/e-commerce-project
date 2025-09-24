@@ -1,6 +1,4 @@
-import NextAuth , {User} from "next-auth";
-import { JWT } from "next-auth/jwt"
-import { extend } from "zod/v4-mini";
+import  {User} from "next-auth";
 
 declare module "next-auth" {
   interface User {

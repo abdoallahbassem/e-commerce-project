@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        let res = await fetch(`${process.env.API}/auth/signin`, {
+        const res = await fetch(`${process.env.API}/auth/signin`, {
           method: "POST",
           body: JSON.stringify({
             email: credentials?.email,
@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           headers: { "Content-Type": "application/json" },
         });
 
-        let payLoad = await res.json();
+        const payLoad = await res.json();
         console.log(payLoad);
 
         if (payLoad.message === "success") {

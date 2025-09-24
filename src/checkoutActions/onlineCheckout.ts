@@ -7,11 +7,11 @@ export default async function onlineCheckout(
   url: string,
   values: CheckoutSchemaType
 ) {
-    let token = await getMyToken()
+    const token = await getMyToken()
     if(!token){
      throw new Error("error")
     }
-  let res = await fetch(
+  const res = await fetch(
     `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=${url}`,
     {
       method: "POST",
@@ -22,6 +22,6 @@ export default async function onlineCheckout(
       body: JSON.stringify({ shippingAddres: values }),
     }
   );
-  let payload = await res.json();
+  const payload = await res.json();
   return payload;
 }

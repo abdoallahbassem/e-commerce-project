@@ -21,9 +21,9 @@ import toast from "react-hot-toast";
 import { CartContext } from "@/context/cartContext";
 
 export default function Checkout() {
-  const { numOfCart, setnumOfCart } = useContext(CartContext);
+  const { setnumOfCart } = useContext(CartContext);
   const router = useRouter();
-  let { id }: { id: string } = useParams();
+  const { id }: { id: string } = useParams();
 
   const form = useForm<CheckoutSchemaType>({
     defaultValues: {
@@ -35,7 +35,7 @@ export default function Checkout() {
   });
 
   async function handleOnlinePayment(values: CheckoutSchemaType) {
-    let res = await onlineCheckout(id, "http://localhost:3000", values);
+    const res = await onlineCheckout(id, "http://localhost:3000", values);
     console.log(res);
     setnumOfCart(0);
     if (res.status === "success") {
@@ -44,7 +44,7 @@ export default function Checkout() {
   }
 
   async function handleOfflinePayment(values: CheckoutSchemaType) {
-    let res = await offlineCheckout(id, values);
+    const res = await offlineCheckout(id, values);
     console.log(res);
     if (res.status === "success") {
       toast.success("order created successfully");

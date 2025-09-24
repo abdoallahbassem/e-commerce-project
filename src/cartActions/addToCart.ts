@@ -4,9 +4,9 @@ import getMyToken from "@/utilites/getMyToken";
 
 export default async function addToCart(id: string) {
   try{
-    let token = await getMyToken();
+    const token = await getMyToken();
   if (!token) throw new Error("please login first to be able to add products to the cart ! ");
-  let res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart`, {
+  const res = await fetch(`https://ecommerce.routemisr.com/api/v1/cart`, {
     method: "POST",
     headers: {
       token,
@@ -14,7 +14,7 @@ export default async function addToCart(id: string) {
     },
     body: JSON.stringify({ productId: id }),
   });
-  let payload = await res.json();
+  const payload = await res.json();
   return payload;
   }
   catch(err){

@@ -3,11 +3,11 @@
 import getMyToken from "@/utilites/getMyToken";
 
 export default async function addToWishList(id:string) {
-    let token = await getMyToken()
+    const token = await getMyToken()
     if(!token){
      throw new Error("error")
     }
-  let res = await fetch(
+  const res = await fetch(
     `https://ecommerce.routemisr.com/api/v1/wishlist`,
     {
       method: "POST",
@@ -18,6 +18,6 @@ export default async function addToWishList(id:string) {
       body: JSON.stringify({ productId: id }),
     }
   );
-  let payload = await res.json();
+  const payload = await res.json();
   return payload;
 }

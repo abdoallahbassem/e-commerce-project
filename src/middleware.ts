@@ -2,7 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  let token = await getToken({ req: request });
+  const token = await getToken({ req: request });
   if (token) {
     if(request.nextUrl.pathname==="/login"||request.nextUrl.pathname==="/register"){
       return NextResponse.redirect(new URL('/', request.url))

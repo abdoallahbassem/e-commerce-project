@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export default function AddBtn({ id }: { id: string }) {
   const {numOfCart,setnumOfCart}=useContext(CartContext)
   async function checkAddProduct(id: string) {
-    let res = await addToCart(id);
+    const res = await addToCart(id);
     console.log(res);
     if (res.status === "success") {
       toast.success("product added successfully");
