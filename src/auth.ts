@@ -32,23 +32,22 @@ export const authOptions: NextAuthOptions = {
           }),
           headers: { "Content-Type": "application/json" },
         });
-
+      
         const payLoad = await res.json();
-        console.log(payLoad);
-
+      
         if (payLoad.message === "success") {
           const decodedToken: { id: string } = jwtDecode(payLoad.token);
-
-          // رجّع user على طول + ضيف token
+      
           return {
             id: decodedToken.id,
             name: payLoad.user.name,
             email: payLoad.user.email,
             role: payLoad.user.role,
             token: payLoad.token,
-          };
+          } as any; // 👈 هنا
         } else throw new Error(payLoad.err);
       },
+      
     }),
   ],
   callbacks: {
