@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
 
@@ -20,20 +20,19 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       name: "Credentials",
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials): Promise<User | null> => {
+        if (!credentials?.email || !credentials.password) return null;
+
         const res = await fetch(`${process.env.API}/auth/signin`, {
           method: "POST",
           body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
+            email: credentials.email,
+            password: credentials.password,
           }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${String(token ?? "")}`,
-          },
+          headers: { "Content-Type": "application/json" },
         });
 
         const payLoad = await res.json();
@@ -41,14 +40,17 @@ export const authOptions: NextAuthOptions = {
         if (payLoad.message === "success") {
           const decodedToken: { id: string } = jwtDecode(payLoad.token);
 
+          // لازم ترجع object يوافق User type
           return {
             id: decodedToken.id,
             name: payLoad.user.name,
             email: payLoad.user.email,
             role: payLoad.user.role,
             token: payLoad.token,
-          } as any; // 👈 هنا
-        } else throw new Error(payLoad.err);
+          } as unknown as User;
+        }
+
+        return null;
       },
     }),
   ],
@@ -56,7 +58,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.user = {
-          id: user.id as string,
+          id: (user as any).id,
           name: user.name as string,
           email: user.email as string,
           role: (user as any).role,
