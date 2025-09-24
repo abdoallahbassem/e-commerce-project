@@ -3,7 +3,6 @@ import getSpecificCategory from "@/subCategoriesActions/getSpecificCategory";
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import GetSpecificCategory from "@/categoryActions/GetSpecificCategory";
-import { Link } from 'next/link';
 export default  function CtegoriesDetails() {
   const [specificCteg, setspecificCteg] = useState({});
   const [loading, setloading] = useState(false)

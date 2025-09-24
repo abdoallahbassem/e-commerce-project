@@ -2,10 +2,8 @@
 import addToCart from "@/cartActions/addToCart";
 import { Button } from "@/components/ui/button";
 import { CartContext } from "@/context/cartContext";
-import getMyToken from "@/utilites/getMyToken";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { string } from "zod";
 
 export default function AddBtn({ id }: { id: string }) {
   const {numOfCart,setnumOfCart}=useContext(CartContext)

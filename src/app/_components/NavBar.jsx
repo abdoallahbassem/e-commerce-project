@@ -3,7 +3,6 @@ import { CartContext } from "@/context/cartContext";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { jwtDecode } from "jwt-decode";
 
 
 export default function NavBar() {

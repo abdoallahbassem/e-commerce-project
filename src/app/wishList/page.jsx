@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react'
 import getWishList from "@/wishListActions/getWishList";
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
   } from "@/components/ui/card";
-  import { Button } from "@/components/ui/button"
   import Link from "next/link";
 import Image from 'next/image';
 import AddBtn from './../_components/addBtn/AddBtn';

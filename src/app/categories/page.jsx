@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import getAllCategories from "@/categoryActions/getAllCategories";
 import {
   Card,
-  CardAction,
-  CardContent,
+
   CardDescription,
   CardFooter,
   CardHeader,

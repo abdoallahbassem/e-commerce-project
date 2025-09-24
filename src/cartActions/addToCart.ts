@@ -1,7 +1,6 @@
 "use server"
 import getMyToken from "@/utilites/getMyToken";
-import { error } from "console";
-import { string } from "zod";
+
 
 export default async function addToCart(id: string) {
   try{

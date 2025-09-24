@@ -7,7 +7,6 @@ import img4 from "../../public/products.jpg";
 import img5 from "../../public/bread2.jpeg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Images } from "lucide-react";
 import { Autoplay } from "swiper/modules";
 import CategSlider from './_components/categslider/CategSlider';
 import AllProducts from './_components/allproducts/AllProducts';
