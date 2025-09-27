@@ -1,4 +1,4 @@
-import { NextAuthOptions, User } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
 
@@ -26,23 +26,25 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials): Promise<User | null> => {
         if (!credentials?.email || !credentials.password) return null;
 
+        console.log(">>> AUTH START - API =", process.env.API);
+        console.log(">>> CREDENTIALS:", credentials);
+
         const res = await fetch(`${process.env.API}/auth/signin`, {
           method: "POST",
           body: JSON.stringify({
             email: credentials.email,
             password: credentials.password,
           }),
-          headers: { "Content-Type": "application/json",
-
-           },
+          headers: { "Content-Type": "application/json" },
         });
+
+        console.log(">>> FETCH OK? status=", res.status, "url=", res.url);
 
         const payLoad = await res.json();
 
         if (payLoad.message === "success") {
           const decodedToken: { id: string } = jwtDecode(payLoad.token);
 
-          // لازم ترجع object يوافق User type
           return {
             id: decodedToken.id,
             name: payLoad.user.name,
@@ -81,3 +83,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+// 👇 ده المهم عشان تقدر تستورد auth في أي مكان
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
